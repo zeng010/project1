@@ -1,5 +1,6 @@
 package com.tjhd.project1.firstproject.bean;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@TableName("t_user")
 public class User {
     private Integer Id;
     private String UserName;

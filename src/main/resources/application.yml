@@ -1,0 +1,29 @@
+
+spring:
+  datasource:
+    url: jdbc:mysql://116.62.22.143:3306/demo?characterEncoding=utf-8&autoReconnect=true&useSSL=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: 1q2w!Q@W
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# 打印日志的两种配置方式第一种就是log-impl
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  configuration:
+    # 控制台输出sql
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 实体类和数据库开启驼峰转换
+    map-underscore-to-camel-case: true
+# 第二种日志输出方式
+#logging:
+#  level:
+#    com.tjhd.project1.firstproject.mapper: debug
+
+
+hub:
+  jwt:
+    # 加密秘钥
+    secret: f4e2e52034348f86b67cde581c0f9eb5
+    # toke有效时长，7天，单位秒
+    expire: 604800
+    header: Authorization
