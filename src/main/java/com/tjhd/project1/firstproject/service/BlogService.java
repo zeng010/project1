@@ -9,5 +9,5 @@ import org.springframework.stereotype.Service;
  * @date: 2021-10-14 17:07
  */
 @Service
-public interface BlogServcie extends IService<Blog> {
+public interface BlogService extends IService<Blog> {
 }

@@ -8,9 +8,12 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.ExpiredCredentialsException;
 import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
+import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -79,5 +82,24 @@ public class JwtFliter extends AuthenticatingFilter {
         }
 
         return false;
+    }
+
+    @Override
+    protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {
+
+        HttpServletRequest httpServletRequest = WebUtils.toHttp(request);
+        HttpServletResponse httpServletResponse = WebUtils.toHttp(response);
+
+        httpServletResponse.setHeader("Access-Control-Allow-Origin",httpServletRequest.getHeader("Origin"));
+        httpServletResponse.setHeader("Access-Control-Allow-Methods","GET,POST,OPTIONS,PUT,DELETE");
+        httpServletResponse.setHeader("Access-Control-Allow-Headers",httpServletRequest.getHeader("Access-Control-Request-Headers"));
+
+        // 跨域时会首先发送一个options请求，这个设置直接给options返回正常状态
+        if (httpServletRequest.getMethod().equals(RequestMethod.OPTIONS.name())) {
+            httpServletResponse.setStatus(HttpStatus.OK.value());
+            return false;
+        }
+
+        return super.preHandle(request, response);
     }
 }

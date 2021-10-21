@@ -5,6 +5,8 @@ import com.tjhd.project1.firstproject.bean.Blog;
 import com.tjhd.project1.firstproject.bean.User;
 import com.tjhd.project1.firstproject.mapper.BlogMapper;
 import com.tjhd.project1.firstproject.mapper.UserMapper;
+import com.tjhd.project1.firstproject.service.BlogService;
+import com.tjhd.project1.firstproject.service.UserService;
 import com.tjhd.project1.firstproject.service.impl.BlogServiceImpl;
 import com.tjhd.project1.firstproject.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -17,9 +19,9 @@ class FirstprojectApplicationTests {
     @Autowired
     UserMapper userMapper;
     @Autowired
-    UserServiceImpl userService;
+    UserService userService;
     @Autowired
-    BlogServiceImpl blogService;
+    BlogService blogService;
     @Autowired
     BlogMapper blogMapper;
 
@@ -36,10 +38,10 @@ class FirstprojectApplicationTests {
     void test2(){
         User user = userMapper.selectOne(null);
         System.out.println(user);
-        User one = userService.getOne(null);
-        System.out.println("---->"+one);
-        Blog one1 = blogService.getOne(null);
-        System.out.println("========>>>>"+one1);
+//        User one = userService.getOne(null);
+//        System.out.println("---->"+one);
+//        Blog one1 = blogService.getById(1);
+//        System.out.println("========>>>>"+one1);
     }
 
     @Test

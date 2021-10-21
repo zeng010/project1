@@ -42,17 +42,18 @@ public class JwtUtils {
 
     /**
      * 验证token
+     *
      * @param token
      * @return
      */
-    public Claims getClaimByToken(String token){
+    public Claims getClaimByToken(String token) {
         try {
             return Jwts.parser()
                     .setSigningKey(secret)
                     .parseClaimsJws(token)
                     .getBody();
-        }catch (Exception e){
-            log.debug("token解析失败",e);
+        } catch (Exception e) {
+            log.debug("token解析失败", e);
             return null;
         }
     }
@@ -60,10 +61,11 @@ public class JwtUtils {
     /**
      * token是否过期
      * true：过期
+     *
      * @param expiration
      * @return
      */
-    public boolean isTokenExpired(Date expiration){
+    public boolean isTokenExpired(Date expiration) {
         return expiration.before(new Date());
     }
 }

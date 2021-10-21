@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 /**
@@ -16,12 +17,15 @@ import java.util.Date;
 @NoArgsConstructor
 @TableName("t_user")
 public class User {
-    private Integer Id;
-    private String UserName;
-    private String Avatar;
-    private String Email;
-    private String Password;
-    private Integer Status;
-    private Date Created;
-    private Date LastLogin;
+    private Long id;
+    @NotBlank(message = "账号不能为空")
+    private String userName;
+    private String avatar;
+    @NotBlank(message = "邮箱不能为空")
+    @javax.validation.constraints.Email(message = "邮箱格式不正确")
+    private String email;
+    private String password;
+    private Integer status;
+    private Date created;
+    private Date lastLogin;
 }

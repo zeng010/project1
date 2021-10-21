@@ -13,16 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @author: Zzz_tjhd
  * @date: 2021-10-16 12:40
  */
-@RestController
-@RequestMapping("/user")
+
 public class BlogController {
 
-    @Autowired
-    UserService userService;
 
-    @GetMapping("/index")
-    public Result index(){
-        User id = userService.getById(1);
-        return Result.succ(id);
-    }
 }

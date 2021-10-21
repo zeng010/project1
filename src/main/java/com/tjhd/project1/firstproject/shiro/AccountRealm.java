@@ -1,12 +1,15 @@
 package com.tjhd.project1.firstproject.shiro;
 
+import cn.hutool.core.bean.BeanUtil;
+import com.tjhd.project1.firstproject.bean.User;
+import com.tjhd.project1.firstproject.service.UserService;
+import com.tjhd.project1.firstproject.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,6 +19,12 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class AccountRealm extends AuthorizingRealm {
+
+
+    @Autowired
+    JwtUtils jwtUtils;
+    @Autowired
+    UserService userService;
 
     @Override
     public boolean supports(AuthenticationToken token) {
@@ -32,8 +41,23 @@ public class AccountRealm extends AuthorizingRealm {
 
         JwtToken jwtToken = (JwtToken) token;
 
-        log.info("获取的token为："+token);
+        String userId = jwtUtils.getClaimByToken((String) jwtToken.getPrincipal()).getSubject();
 
-        return null;
+        User user = userService.getById(Long.valueOf(userId));
+
+        if (user == null) {
+            throw new UnknownAccountException("账户不存在！");
+        }
+        if (user.getStatus() == -1) {
+            throw new LockedAccountException("账户被锁定！");
+        }
+
+        AccountProfile profile = new AccountProfile();
+        BeanUtil.copyProperties(user, profile);
+
+
+        log.info("获取的token为：" + token);
+
+        return new SimpleAuthenticationInfo(profile, jwtToken.getCredentials(), getName());
     }
 }
