@@ -32,7 +32,7 @@ public class JwtUtils {
         Date expireDate = new Date(nowDate.getTime() + expire * 1000);
 
         return Jwts.builder()
-                .setHeaderParam("typ", "JWT")
+                .setHeaderParam("type", "JWT")
                 .setSubject(userId + "")
                 .setIssuedAt(nowDate)
                 .setExpiration(expireDate)

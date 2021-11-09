@@ -10,8 +10,8 @@ import java.io.Serializable;
  */
 @Data
 public class AccountProfile implements Serializable {
-    private Long Id;
-    private String UserName;
-    private String Avatar;
-    private String Email;
+    private Long id;
+    private String username;
+    private String avatar;
+    private String email;
 }

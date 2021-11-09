@@ -16,8 +16,8 @@ import java.util.Date;
 @NoArgsConstructor
 @TableName("t_blog")
 public class Blog {
-    private Integer Id;
-    private Integer UserId;
+    private Long Id;
+    private Long UserId;
     private String Title;
     private String Description;
     private String Content;

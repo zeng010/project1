@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +34,7 @@ public class LoginController {
     @PostMapping("/login")
     public Result login(@Validated @RequestBody LoginDto loginDto, HttpServletResponse response) {
 
-        log.info("----->登录账号密码为：", loginDto.getPassword(), loginDto.getUserName());
+        log.info("----->登录账号密码为："+ loginDto.getPassword(), loginDto.getUserName());
 
         // 根据登录传过来的姓名查询数据库是否存在用户
         QueryWrapper<User> wrapper = new QueryWrapper<>();
@@ -43,7 +42,7 @@ public class LoginController {
 
         User user = userService.getOne(wrapper);
 
-        log.info("查询返回的用户为：----->", user);
+        log.info("查询返回的用户为：----->"+ user);
 
         Assert.notNull(user, "用户不存在");
 
@@ -53,6 +52,8 @@ public class LoginController {
 
         // 给用户生成token
         String jwt = jwtUtils.generateToke(user.getId());
+
+        log.info("返回的jwt为："+jwt);
 
         response.setHeader("Authorization", jwt);
         response.setHeader("Access-control-Expost-Headers", "Authorization");
