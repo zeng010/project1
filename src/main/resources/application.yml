@@ -1,17 +1,10 @@
 
-
 spring:
   datasource:
-    url: jdbc:mysql://11*.*.*.143:3306/demo?characterEncoding=utf-8&autoReconnect=true&useSSL=true&serverTimezone=Asia/Shanghai
-    username: ****
-    password: ****
+    url: jdbc:mysql://116.62.22.143:3306/demo?characterEncoding=utf-8&autoReconnect=true&useSSL=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: 1q2w!Q@W
     driver-class-name: com.mysql.cj.jdbc.Driver
-
-  redis:
-    host: localhost
-    port: 6379
-    password: 0987
-    connect-timeout: 50000
 
 # 打印日志的两种配置方式第一种就是log-impl
 mybatis-plus:
@@ -27,7 +20,6 @@ mybatis-plus:
 #    com.tjhd.project1.firstproject.mapper: debug
 
 
-
 hub:
   jwt:
     # 加密秘钥
@@ -35,7 +27,3 @@ hub:
     # toke有效时长，7天，单位秒
     expire: 604800
     header: Authorization
-
- # 项目端口
-server:
-  port: 8889
