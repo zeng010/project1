@@ -33,9 +33,9 @@ public class BlogController {
     BlogService blogService;
 
     @GetMapping("/all")
-    public Result list(@RequestParam Integer currentPage, @RequestParam Integer size) {
+    public Result list(@RequestParam(defaultValue = "1") Integer currentPage) {
 
-        Page page = new Page(currentPage,size);
+        Page page = new Page(currentPage,5);
         Page pageData = blogService.page(page, new QueryWrapper<Blog>().orderByDesc("created"));
 
         return Result.succ(pageData);
@@ -48,6 +48,16 @@ public class BlogController {
         Assert.notNull(byId,"该博客已经被删除！");
 
         return Result.succ(byId);
+    }
+
+    @PostMapping("/del")
+    public Result del(@RequestParam long id){
+        boolean b = blogService.removeById(id);
+        if (b) {
+            return Result.succ("删除成功");
+        }else {
+            return Result.fail("删除失败");
+        }
     }
 
     @RequiresAuthentication

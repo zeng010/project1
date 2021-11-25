@@ -13,6 +13,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SpringBootTest
 class FirstprojectApplicationTests {
 
@@ -53,5 +56,16 @@ class FirstprojectApplicationTests {
 
         Page<Blog> page2 = blogService.page(page, null);
         System.out.println("service查询的分页数据为：--->"+page2.getRecords());
+    }
+
+    @Test
+    void test4(){
+        List<String> s = new ArrayList<>();
+        s.add("1");
+        s.add("1");
+        s.add("1");
+        for (String s1 : s) {
+            System.out.println(s);
+        }
     }
 }

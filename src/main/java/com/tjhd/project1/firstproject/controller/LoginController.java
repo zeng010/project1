@@ -34,11 +34,11 @@ public class LoginController {
     @PostMapping("/login")
     public Result login(@Validated @RequestBody LoginDto loginDto, HttpServletResponse response) {
 
-        log.info("----->登录账号密码为："+ loginDto.getPassword(), loginDto.getUserName());
+        log.info("----->登录账号密码为："+ loginDto.getPassword(), loginDto.getUsername());
 
         // 根据登录传过来的姓名查询数据库是否存在用户
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("user_name", loginDto.getUserName());
+        wrapper.eq("user_name", loginDto.getUsername());
 
         User user = userService.getOne(wrapper);
 
@@ -56,7 +56,7 @@ public class LoginController {
         log.info("返回的jwt为："+jwt);
 
         response.setHeader("Authorization", jwt);
-        response.setHeader("Access-control-Expost-Headers", "Authorization");
+        response.setHeader("Access-control-Expose-Headers", "Authorization");
 
         return Result.succ(MapUtil.builder()
                 .put("id", user.getId())
